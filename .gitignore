@@ -1,2 +1,7 @@
-/playlistGenerator/nbproject/private/
-/playlistGenerator/build/
+/build/
+/nbproject/private/
+/dist/
+/db/
+
+.log
+
