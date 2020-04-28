@@ -39,7 +39,7 @@ class Database {
     }
     
     public String[][] select(String items, String table, String condition) throws SQLException {
-        return get("SELECT "+items+" FROM "+table+" WHERE "+condition, items.split(", ?").length);
+        return get("SELECT "+items+" FROM "+table+" "+condition, items.split(", ?").length);
     }
     
     public void insert(String items, String table) throws SQLException {

@@ -100,18 +100,14 @@ public class window extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Resever");
 
-        selTime.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "18:50", "19:20", "20:00" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        selTime.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        selTime.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                selTimeValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(selTime);
 
-        selBiograph.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Kolding", "Esbjerg" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         selBiograph.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         selBiograph.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -120,12 +116,12 @@ public class window extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(selBiograph);
 
-        selMovie.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Film 1", "Film 2", "Film 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         selMovie.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        selMovie.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                selMovieValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(selMovie);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -138,30 +134,31 @@ public class window extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectMovieLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1))
+                .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2))
+                .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(findSeatButton, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectMovieLayout.createSequentialGroup()
+                .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(selectMovieLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(findSeatButton, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addContainerGap())
         );
         selectMovieLayout.setVerticalGroup(
@@ -171,25 +168,24 @@ public class window extends javax.swing.JFrame {
                 .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(selectMovieLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(selectMovieLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel7))
+                        .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(selectMovieLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)))
+                                .addComponent(jLabel10))
+                            .addGroup(selectMovieLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(findSeatButton))
                     .addComponent(jScrollPane3)
@@ -243,13 +239,13 @@ public class window extends javax.swing.JFrame {
         selectSeatLayout.setHorizontalGroup(
             selectSeatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectSeatLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(selectSeatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectSeatLayout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(continueToPaymentButton))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(continueToPaymentButton)))
                 .addContainerGap())
         );
         selectSeatLayout.setVerticalGroup(
@@ -270,7 +266,7 @@ public class window extends javax.swing.JFrame {
         pay.setLayout(payLayout);
         payLayout.setHorizontalGroup(
             payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 653, Short.MAX_VALUE)
         );
         payLayout.setVerticalGroup(
             payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,8 +281,7 @@ public class window extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pages)
-                .addContainerGap())
+                .addComponent(pages))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,10 +304,12 @@ public class window extends javax.swing.JFrame {
     private void pagesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagesFocusGained
         switch (pages.getSelectedIndex()) {
             case 0:
+                findSeatButton.setEnabled(false);
                 pages.setEnabledAt(1, false);
                 pages.setEnabledAt(2, false);
                 break;
             case 1:
+                continueToPaymentButton.setEnabled(false);
                 pages.setEnabledAt(1, true);
                 pages.setEnabledAt(2, false);
                 break;
@@ -322,14 +319,17 @@ public class window extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_pagesFocusGained
-
+    
+    String[][] movies;
+    
     private void selBiographValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selBiographValueChanged
         try {
-            
-            Object[][] tbl = db.select("NAVN", "FILM", "ID="+selBiograph.getSelectedIndex());
-            String[] model = new String[tbl.length];
-            for(int i = 0; i < tbl.length; i++)
-                model[i] = (String) tbl[i][0];
+            findSeatButton.setEnabled(false);
+            movies = db.select("NAVN, FILMID", "FILM", "INNER JOIN OVERSIGT ON FILM.FILMID = OVERSIGT.ID AND BIOGRAF = "+selBiograph.getSelectedIndex());
+
+            String[] model = new String[movies.length];
+            for(int i = 0; i < movies.length; i++)
+                model[i] = (String) movies[i][0];
             
             selMovie.setListData(model);
             
@@ -337,6 +337,28 @@ public class window extends javax.swing.JFrame {
             Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_selBiographValueChanged
+
+    private void selTimeValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selTimeValueChanged
+        if(!selTime.isSelectionEmpty()) {
+            findSeatButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_selTimeValueChanged
+
+    private void selMovieValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selMovieValueChanged
+        try {
+            findSeatButton.setEnabled(false);
+            String[][] tbl = db.select("START", "FILM", "WHERE FILMID = "+movies[selMovie.getSelectedIndex()][1]+" AND BIOGRAF = "+selBiograph.getSelectedIndex());
+
+            String[] model = new String[tbl.length];
+            for(int i = 0; i < tbl.length; i++)
+                model[i] = (String) tbl[i][0];
+            
+            selTime.setListData(model);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_selMovieValueChanged
     
     public Database db;
             
@@ -344,7 +366,7 @@ public class window extends javax.swing.JFrame {
         try {            
             db = new Database("jdbc:derby://localhost:1527/bio", "bio", "1234");
             
-            //db.insert("0,'AARHUS','Løvernes konge','2020-05-22 20:15:00',0", "BIOGRAFER");
+            //db.insert("2, 1, 6,'"+radix("110022221000000",3,10)+"', 2, '2020-05-22 20:15:00'", "FILM");
             
             /* Pladser ræpræsenteres som enten 0, 1 eller 2 (fri, reseveret eller optaget)
                så kander vi antallet af sæder i rækkerne kan vi skrive :
@@ -356,14 +378,14 @@ public class window extends javax.swing.JFrame {
                som bliver til 6552981 i decimal, dette kan vi konvetere tilbage til base 3
              */
             
-            System.out.println(radix("6552981", 10, 3));
-            System.out.println(radix("110022221000000", 3, 10));
+            //System.out.println(radix("6552981", 10, 3));
+            //System.out.println(radix("110022221000000", 3, 10));
 
             //db.insert("4,'AARHUS',12", "BIOGRAFER");
             //db.update("2", "SALE", "NAVN = 'ESBJERG'", "BIOGRAFER");
 
             String[][] tbl = db.select("NAVN, ID", "BIOGRAFER");
-            String[] model = new String[tbl.length+1];
+            String[] model = new String[tbl.length];
             for (String[] row : tbl)
                 model[Integer.valueOf(row[1])] = row[0];
             
