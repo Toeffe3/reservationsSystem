@@ -1,7 +1,10 @@
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -47,14 +50,14 @@ public class window extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         selTime = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        selBiograph = new javax.swing.JList<>();
+        selCinnema = new javax.swing.JList<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         selMovie = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         selectSeat = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        seatSel = new javax.swing.JTable();
         continueToPaymentButton = new javax.swing.JButton();
         pay = new javax.swing.JPanel();
 
@@ -108,13 +111,13 @@ public class window extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(selTime);
 
-        selBiograph.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        selBiograph.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        selCinnema.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        selCinnema.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                selBiographValueChanged(evt);
+                selCinnemaValueChanged(evt);
             }
         });
-        jScrollPane3.setViewportView(selBiograph);
+        jScrollPane3.setViewportView(selCinnema);
 
         selMovie.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         selMovie.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -154,9 +157,9 @@ public class window extends javax.swing.JFrame {
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(findSeatButton, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addContainerGap())
@@ -173,19 +176,17 @@ public class window extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(selectMovieLayout.createSequentialGroup()
-                        .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(selectMovieLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10))
-                            .addGroup(selectMovieLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)))
+                        .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(findSeatButton))
                     .addComponent(jScrollPane3)
@@ -199,33 +200,23 @@ public class window extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Vælg pladser");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Sæde 1", "Sæde 2", "Sæde 3", "Sæde 4", "Sæde 5", "Sæde 6", "Sæde 7", "Sæde 8", "Sæde 9", "Sæde 10", "Sæde 11", "Sæde 12", "Sæde 13", "Sæde 14", "Sæde 15", "Sæde 16", "Sæde 17", "Sæde 18", "Sæde 19", "Sæde 20", "Sæde 21", "Sæde 22", "Sæde 23", "Sæde 24", "Sæde 25"
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane4.setEnabled(false);
+        jScrollPane4.setFocusable(false);
+
+        seatSel.setAutoscrolls(false);
+        seatSel.setColumnSelectionAllowed(false);
+        seatSel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        seatSel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        seatSel.getTableHeader().setResizingAllowed(false);
+        seatSel.getTableHeader().setReorderingAllowed(false);
+        seatSel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                seatSelMouseReleased(evt);
             }
-        ));
-        jTable1.setAutoscrolls(false);
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        jTable1.setShowHorizontalLines(false);
-        jTable1.setShowVerticalLines(false);
-        jTable1.getTableHeader().setResizingAllowed(false);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(jTable1);
+        });
+        jScrollPane4.setViewportView(seatSel);
 
         continueToPaymentButton.setText("Forsæt");
         continueToPaymentButton.addActionListener(new java.awt.event.ActionListener() {
@@ -300,7 +291,9 @@ public class window extends javax.swing.JFrame {
     private void continueToPaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueToPaymentButtonActionPerformed
         pages.setSelectedIndex(2);
     }//GEN-LAST:event_continueToPaymentButtonActionPerformed
-
+    
+    String seats;
+    
     private void pagesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagesFocusGained
         switch (pages.getSelectedIndex()) {
             case 0:
@@ -312,6 +305,32 @@ public class window extends javax.swing.JFrame {
                 continueToPaymentButton.setEnabled(false);
                 pages.setEnabledAt(1, true);
                 pages.setEnabledAt(2, false);
+                
+                seats = new StringBuilder(radix(movies[selMovie.getSelectedIndex()][2],32,3)).reverse().toString();
+                DefaultTableModel tm = (DefaultTableModel) seatSel.getModel();
+                
+                int length = Integer.valueOf(movies[selMovie.getSelectedIndex()][3]);
+                String[] arr = new String[length];
+                
+                for(int i = 0; i < length; i++)    
+                    tm.addColumn("Sæde "+(i+1));
+                
+                for(int i = 0; i < seats.length()-1; i+=length) {
+                    for(int j = 0; j < length; j++)
+                        if(seats.length()-1 < i+j) arr[j] = "0";
+                        else arr[j] = seats.charAt(i+j)+"";
+                    tm.addRow(arr);
+                }
+                
+                seatSel.setDefaultRenderer(Object.class, new CustomRenderer());
+                seatSel.setDefaultEditor(Object.class, null);
+                seatSel.getTableHeader().setReorderingAllowed(false);
+                seatSel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+                seatSel.setRowSelectionAllowed(true);
+                seatSel.setColumnSelectionAllowed(false);
+                seatSel.setCellSelectionEnabled(true);
+                seatSel.setModel(tm);
+                
                 break;
             case 2:
                 pages.setEnabledAt(1, true);
@@ -322,10 +341,10 @@ public class window extends javax.swing.JFrame {
     
     String[][] movies;
     
-    private void selBiographValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selBiographValueChanged
+    private void selCinnemaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selCinnemaValueChanged
         try {
             findSeatButton.setEnabled(false);
-            movies = db.select("NAVN, FILMID", "FILM", "INNER JOIN OVERSIGT ON FILM.FILMID = OVERSIGT.ID AND BIOGRAF = "+selBiograph.getSelectedIndex());
+            movies = db.select("NAVN, FILMID, SÆDER, RÆKKER, SALID", "FILM", "INNER JOIN OVERSIGT ON FILM.FILMID = OVERSIGT.ID AND BIOGRAF = "+selCinnema.getSelectedIndex());
 
             String[] model = new String[movies.length];
             for(int i = 0; i < movies.length; i++)
@@ -336,7 +355,7 @@ public class window extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_selBiographValueChanged
+    }//GEN-LAST:event_selCinnemaValueChanged
 
     private void selTimeValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selTimeValueChanged
         if(!selTime.isSelectionEmpty()) {
@@ -347,7 +366,7 @@ public class window extends javax.swing.JFrame {
     private void selMovieValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selMovieValueChanged
         try {
             findSeatButton.setEnabled(false);
-            String[][] tbl = db.select("START", "FILM", "WHERE FILMID = "+movies[selMovie.getSelectedIndex()][1]+" AND BIOGRAF = "+selBiograph.getSelectedIndex());
+            String[][] tbl = db.select("START", "FILM", "WHERE FILMID = "+movies[selMovie.getSelectedIndex()][1]+" AND BIOGRAF = "+selCinnema.getSelectedIndex());
 
             String[] model = new String[tbl.length];
             for(int i = 0; i < tbl.length; i++)
@@ -360,13 +379,29 @@ public class window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selMovieValueChanged
     
+    ArrayList<Integer> selectedSeats = new ArrayList();
+    private void seatSelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seatSelMouseReleased
+        selectedSeats = new ArrayList();
+        
+        for(int col : seatSel.getSelectedColumns())
+            if(seats.charAt((col+(seatSel.getSelectedRow())*seatSel.getColumnCount())) == '0')
+                selectedSeats.add((col+(seatSel.getSelectedRow())*seatSel.getColumnCount()));
+        
+        if(selectedSeats.size() > 0) continueToPaymentButton.setEnabled(true);
+        else continueToPaymentButton.setEnabled(false);
+    }//GEN-LAST:event_seatSelMouseReleased
+    
     public Database db;
             
     public void start() {
         try {            
             db = new Database("jdbc:derby://localhost:1527/bio", "bio", "1234");
             
-            //db.insert("2, 1, 6,'"+radix("110022221000000",3,10)+"', 2, '2020-05-22 20:15:00'", "FILM");
+            //System.out.println(radix("001122211001122222000002200000",3,32));
+            //System.out.println(radix("bgcc16qk4",32,3));
+
+            
+            //db.insert("2, 6,'"+radix("000110022221000000",3,32)+"', 2, '2020-05-22 20:15:00', 20", "FILM");
             
             /* Pladser ræpræsenteres som enten 0, 1 eller 2 (fri, reseveret eller optaget)
                så kander vi antallet af sæder i rækkerne kan vi skrive :
@@ -378,19 +413,19 @@ public class window extends javax.swing.JFrame {
                som bliver til 6552981 i decimal, dette kan vi konvetere tilbage til base 3
              */
             
-            //System.out.println(radix("6552981", 10, 3));
-            //System.out.println(radix("110022221000000", 3, 10));
-
-            //db.insert("4,'AARHUS',12", "BIOGRAFER");
-            //db.update("2", "SALE", "NAVN = 'ESBJERG'", "BIOGRAFER");
+            //int t = 19;
+            //System.out.println(getCinnema(t));
+            //System.out.println(getAuditorium(t));
+            
+            //db.insert("4,'AARHUS'", "BIOGRAFER");
+            //db.update("3", "ID", "NAVN = 'ODENSE C'", "BIOGRAFER");
 
             String[][] tbl = db.select("NAVN, ID", "BIOGRAFER");
             String[] model = new String[tbl.length];
             for (String[] row : tbl)
                 model[Integer.valueOf(row[1])] = row[0];
             
-            selBiograph.setListData(model);
-            
+            selCinnema.setListData(model);
             
         } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
@@ -399,7 +434,22 @@ public class window extends javax.swing.JFrame {
     
     public String radix(String num, int from, int to) {
         return Long.toString(Long.parseUnsignedLong(num, from), to);
-    } 
+    }
+    
+    public int getCinnema(int identifier) {
+        for(int i = 1; i < 17; i++) {
+            int cin = (identifier - (3 * i)) / 17;
+            if(cin == Math.abs(cin)) return cin - 2;
+        } return -1;
+    }
+    
+    public int getAuditorium(int identifier) {
+        return getCinnema(identifier) / 3 - 1;
+    }
+    
+    public int getIdentifier(int cin, int aud) {
+        return (cin*17+aud*3);
+    }
     
     /**
      * @param args the command line arguments
@@ -454,10 +504,10 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTabbedPane pages;
     private javax.swing.JPanel pay;
-    private javax.swing.JList<String> selBiograph;
+    private javax.swing.JTable seatSel;
+    private javax.swing.JList<String> selCinnema;
     private javax.swing.JList<String> selMovie;
     private javax.swing.JList<String> selTime;
     private javax.swing.JPanel selectMovie;
