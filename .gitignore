@@ -1,7 +1,6 @@
 /build/
 /nbproject/private/
 /dist/
-/db/
 
-.log
-
+*.log
+/db/bio/log/
