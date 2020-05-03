@@ -1,9 +1,14 @@
-
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ListSelectionModel;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -16,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Victor
  */
-public class window extends javax.swing.JFrame {
+public final class window extends javax.swing.JFrame {
 
     /**
      * Creates new form window
@@ -58,8 +63,10 @@ public class window extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         seatSel = new javax.swing.JTable();
-        continueToPaymentButton = new javax.swing.JButton();
+        continueToPaymentButton1 = new javax.swing.JButton();
+        continueToPaymentButton2 = new javax.swing.JButton();
         pay = new javax.swing.JPanel();
+        tickets = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,7 +182,7 @@ public class window extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(selectMovieLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, selectMovieLayout.createSequentialGroup()
                         .addGroup(selectMovieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jLabel5))
@@ -206,7 +213,6 @@ public class window extends javax.swing.JFrame {
         jScrollPane4.setFocusable(false);
 
         seatSel.setAutoscrolls(false);
-        seatSel.setColumnSelectionAllowed(false);
         seatSel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         seatSel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         seatSel.getTableHeader().setResizingAllowed(false);
@@ -218,10 +224,17 @@ public class window extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(seatSel);
 
-        continueToPaymentButton.setText("Forsæt");
-        continueToPaymentButton.addActionListener(new java.awt.event.ActionListener() {
+        continueToPaymentButton1.setText("Resever");
+        continueToPaymentButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                continueToPaymentButtonActionPerformed(evt);
+                continueToPaymentButton1ActionPerformed(evt);
+            }
+        });
+
+        continueToPaymentButton2.setText("Køb");
+        continueToPaymentButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continueToPaymentButton2ActionPerformed(evt);
             }
         });
 
@@ -229,14 +242,18 @@ public class window extends javax.swing.JFrame {
         selectSeat.setLayout(selectSeatLayout);
         selectSeatLayout.setHorizontalGroup(
             selectSeatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectSeatLayout.createSequentialGroup()
+            .addGroup(selectSeatLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(selectSeatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, selectSeatLayout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                .addGroup(selectSeatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(selectSeatLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(selectSeatLayout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(continueToPaymentButton)))
+                        .addComponent(continueToPaymentButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(continueToPaymentButton2)))
                 .addContainerGap())
         );
         selectSeatLayout.setVerticalGroup(
@@ -244,8 +261,9 @@ public class window extends javax.swing.JFrame {
             .addGroup(selectSeatLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(selectSeatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(continueToPaymentButton)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(continueToPaymentButton1)
+                    .addComponent(continueToPaymentButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -257,11 +275,17 @@ public class window extends javax.swing.JFrame {
         pay.setLayout(payLayout);
         payLayout.setHorizontalGroup(
             payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
+            .addGroup(payLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tickets)
+                .addContainerGap())
         );
         payLayout.setVerticalGroup(
             payLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 282, Short.MAX_VALUE)
+            .addGroup(payLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tickets)
+                .addContainerGap())
         );
 
         pages.addTab("Betal", pay);
@@ -272,13 +296,15 @@ public class window extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pages))
+                .addComponent(pages, javax.swing.GroupLayout.PREFERRED_SIZE, 649, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pages))
+                .addComponent(pages)
+                .addContainerGap())
         );
 
         pack();
@@ -287,12 +313,14 @@ public class window extends javax.swing.JFrame {
     private void findSeatButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findSeatButtonActionPerformed
         pages.setSelectedIndex(1);
     }//GEN-LAST:event_findSeatButtonActionPerformed
-
-    private void continueToPaymentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueToPaymentButtonActionPerformed
-        pages.setSelectedIndex(2);
-    }//GEN-LAST:event_continueToPaymentButtonActionPerformed
+    
+    
+    public static int ceil(double x) {
+        return ((int)x)+1;
+    }
     
     String seats;
+    int length;
     
     private void pagesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagesFocusGained
         switch (pages.getSelectedIndex()) {
@@ -302,23 +330,31 @@ public class window extends javax.swing.JFrame {
                 pages.setEnabledAt(2, false);
                 break;
             case 1:
-                continueToPaymentButton.setEnabled(false);
+                continueToPaymentButton1.setEnabled(false);
+                continueToPaymentButton2.setEnabled(false);
+
                 pages.setEnabledAt(1, true);
                 pages.setEnabledAt(2, false);
                 
                 seats = new StringBuilder(radix(movies[selMovie.getSelectedIndex()][2],32,3)).reverse().toString();
                 DefaultTableModel tm = (DefaultTableModel) seatSel.getModel();
                 
-                int length = Integer.valueOf(movies[selMovie.getSelectedIndex()][3]);
+                length = Integer.valueOf(movies[selMovie.getSelectedIndex()][3]);
+                
+                final int fill = ceil(seats.length()/length)*length - seats.length();
+                
+                for(int x = 0; x < fill; x++) {
+                    seats += "0";
+                }
+                System.out.println(seats);
                 String[] arr = new String[length];
                 
                 for(int i = 0; i < length; i++)    
                     tm.addColumn("Sæde "+(i+1));
                 
-                for(int i = 0; i < seats.length()-1; i+=length) {
-                    for(int j = 0; j < length; j++)
-                        if(seats.length()-1 < i+j) arr[j] = "0";
-                        else arr[j] = seats.charAt(i+j)+"";
+                for(int i = 0; i < seats.length(); i+=length) {
+                    for(int j = 0; j < length; j++) 
+                        arr[j] = seats.charAt(i+j)+"";
                     tm.addRow(arr);
                 }
                 
@@ -335,6 +371,38 @@ public class window extends javax.swing.JFrame {
             case 2:
                 pages.setEnabledAt(1, true);
                 pages.setEnabledAt(2, true);
+                
+                JPanel allTickets = new JPanel();
+                allTickets.setLayout(new BoxLayout(allTickets, BoxLayout.Y_AXIS));
+                JPanel[] panels = new JPanel[selectedSeats.size()];
+                for(int i = 0; i < panels.length; i++) {
+                    panels[i] = new JPanel();
+                    panels[i].setLayout(new BoxLayout(panels[i], BoxLayout.Y_AXIS));
+                    panels[i].setPreferredSize(new Dimension(300,64));
+                    panels[i].setAlignmentX(CENTER_ALIGNMENT);
+                    
+                    String[] entries = {
+                        "Film: "+movies[selMovie.getSelectedIndex()][0],
+                        "Række "+ ((int)(seats.length()/length)-(int)(selectedSeats.get(i)/length)) +"    Sæde "+ ((int)(selectedSeats.get(i)%length)+1),
+                        "Tid: "+selTime.getSelectedValue(),
+                        "Gyldig i "+selCinnema.getSelectedValue()+" biograf"
+                    };
+                    
+                    JLabel[] labels = new JLabel[entries.length];
+                    for(int j = 0; j < labels.length; j++) {
+                        labels[j] = new JLabel(entries[j]);
+                        panels[i].add(labels[j]);
+                        allTickets.add(panels[i]);
+                        allTickets.add(Box.createRigidArea(new Dimension(300,20)));
+                    }
+                }
+                allTickets.add(Box.createRigidArea(new Dimension(300,20)));
+                tickets.setViewportView(allTickets);
+                tickets.revalidate();
+                tickets.repaint();
+                validate();
+                repaint();
+                
                 break;
         }
     }//GEN-LAST:event_pagesFocusGained
@@ -379,7 +447,7 @@ public class window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selMovieValueChanged
     
-    ArrayList<Integer> selectedSeats = new ArrayList();
+    ArrayList<Integer> selectedSeats;
     private void seatSelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seatSelMouseReleased
         selectedSeats = new ArrayList();
         
@@ -387,19 +455,35 @@ public class window extends javax.swing.JFrame {
             if(seats.charAt((col+(seatSel.getSelectedRow())*seatSel.getColumnCount())) == '0')
                 selectedSeats.add((col+(seatSel.getSelectedRow())*seatSel.getColumnCount()));
         
-        if(selectedSeats.size() > 0) continueToPaymentButton.setEnabled(true);
-        else continueToPaymentButton.setEnabled(false);
+        if(selectedSeats.size() > 0) {
+            continueToPaymentButton1.setEnabled(true);
+            continueToPaymentButton2.setEnabled(true);
+        } else {
+            continueToPaymentButton1.setEnabled(false);
+            continueToPaymentButton2.setEnabled(false);
+        }
     }//GEN-LAST:event_seatSelMouseReleased
     
-    public Database db;
+    public String method = "";
+    
+    private void continueToPaymentButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueToPaymentButton1ActionPerformed
+        method = "reseve";
+        pages.setSelectedIndex(2);
+    }//GEN-LAST:event_continueToPaymentButton1ActionPerformed
+
+    private void continueToPaymentButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueToPaymentButton2ActionPerformed
+        method = "buy";
+        pages.setSelectedIndex(2);
+    }//GEN-LAST:event_continueToPaymentButton2ActionPerformed
+    
+    Database db;
             
     public void start() {
         try {            
             db = new Database("jdbc:derby://localhost:1527/bio", "bio", "1234");
             
-            //System.out.println(radix("001122211001122222000002200000",3,32));
+            //System.out.println(radix("0011222110 0112222200 0002200000",3,32));
             //System.out.println(radix("bgcc16qk4",32,3));
-
             
             //db.insert("2, 6,'"+radix("000110022221000000",3,32)+"', 2, '2020-05-22 20:15:00', 20", "FILM");
             
@@ -479,15 +563,14 @@ public class window extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new window().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new window().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton continueToPaymentButton;
+    private javax.swing.JButton continueToPaymentButton1;
+    private javax.swing.JButton continueToPaymentButton2;
     private javax.swing.JButton findSeatButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -512,5 +595,6 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JList<String> selTime;
     private javax.swing.JPanel selectMovie;
     private javax.swing.JPanel selectSeat;
+    private javax.swing.JScrollPane tickets;
     // End of variables declaration//GEN-END:variables
 }
