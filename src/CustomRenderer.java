@@ -4,7 +4,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
- * 
+ * This class can be called with a tablerender to format colors of individual cells within the table.
  * @author Victor
  */
 class CustomRenderer extends DefaultTableCellRenderer {

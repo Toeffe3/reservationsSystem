@@ -1,5 +1,3 @@
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,12 +8,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -314,14 +306,6 @@ public final class window extends javax.swing.JFrame {
         pages.setSelectedIndex(1);
     }//GEN-LAST:event_findSeatButtonActionPerformed
     
-    
-    public static int ceil(double x) {
-        return ((int)x)+1;
-    }
-    
-    String seats;
-    int length;
-    
     private void pagesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pagesFocusGained
         switch (pages.getSelectedIndex()) {
             case 0:
@@ -383,7 +367,7 @@ public final class window extends javax.swing.JFrame {
                     
                     String[] entries = {
                         "Film: "+movies[selMovie.getSelectedIndex()][0],
-                        "Række "+ ((int)(seats.length()/length)-(int)(selectedSeats.get(i)/length)) +"    Sæde "+ ((int)(selectedSeats.get(i)%length)+1),
+                        "SAL: "+movies[selMovie.getSelectedIndex()][4]+"    Række "+ ((int)(seats.length()/length)-(int)(selectedSeats.get(i)/length)) +"    Sæde "+ ((int)(selectedSeats.get(i)%length)+1),
                         "Tid: "+selTime.getSelectedValue(),
                         "Gyldig i "+selCinnema.getSelectedValue()+" biograf"
                     };
@@ -403,16 +387,39 @@ public final class window extends javax.swing.JFrame {
                 validate();
                 repaint();
                 
+                String newseats = "";
+                
+                for(int i = 0; i < seats.length(); i++) {
+                    if(-1 != selectedSeats.lastIndexOf(i))
+                        newseats += method.equals("buy") ? '2' : '1';
+                    else newseats += seats.charAt(i);
+                }
+                
+                
+                System.out.println(seats);
+                System.out.println(newseats);
+                
+                System.out.println(radix(seats,3,32));
+                System.out.println(radix(newseats,3,32));
+                
+                newseats = radix(new StringBuilder(newseats).reverse().toString(),3,32);
+                
+                try {
+                    db.update("'"+newseats+"'", "SÆDER", "NUMMER = "+movies[selMovie.getSelectedIndex()][5], "FILM");
+                } catch (SQLException ex) {
+                    Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 break;
         }
     }//GEN-LAST:event_pagesFocusGained
     
-    String[][] movies;
-    
     private void selCinnemaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selCinnemaValueChanged
         try {
+            selTime.setSelectedIndex(-1);
+            selMovie.setSelectedIndex(-1);
             findSeatButton.setEnabled(false);
-            movies = db.select("NAVN, FILMID, SÆDER, RÆKKER, SALID", "FILM", "INNER JOIN OVERSIGT ON FILM.FILMID = OVERSIGT.ID AND BIOGRAF = "+selCinnema.getSelectedIndex());
+            movies = db.select("NAVN, FILMID, SÆDER, RÆKKER, SAL, NUMMER", "FILM", "INNER JOIN OVERSIGT ON FILMID = FILM AND BIOGRAF = "+selCinnema.getSelectedIndex());
 
             String[] model = new String[movies.length];
             for(int i = 0; i < movies.length; i++)
@@ -426,13 +433,12 @@ public final class window extends javax.swing.JFrame {
     }//GEN-LAST:event_selCinnemaValueChanged
 
     private void selTimeValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selTimeValueChanged
-        if(!selTime.isSelectionEmpty()) {
-            findSeatButton.setEnabled(true);
-        }
+        if(!selTime.isSelectionEmpty()) findSeatButton.setEnabled(true);
     }//GEN-LAST:event_selTimeValueChanged
 
     private void selMovieValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_selMovieValueChanged
         try {
+            selTime.setSelectedIndex(-1);
             findSeatButton.setEnabled(false);
             String[][] tbl = db.select("START", "FILM", "WHERE FILMID = "+movies[selMovie.getSelectedIndex()][1]+" AND BIOGRAF = "+selCinnema.getSelectedIndex());
 
@@ -447,7 +453,6 @@ public final class window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selMovieValueChanged
     
-    ArrayList<Integer> selectedSeats;
     private void seatSelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seatSelMouseReleased
         selectedSeats = new ArrayList();
         
@@ -464,8 +469,6 @@ public final class window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_seatSelMouseReleased
     
-    public String method = "";
-    
     private void continueToPaymentButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueToPaymentButton1ActionPerformed
         method = "reseve";
         pages.setSelectedIndex(2);
@@ -477,32 +480,16 @@ public final class window extends javax.swing.JFrame {
     }//GEN-LAST:event_continueToPaymentButton2ActionPerformed
     
     Database db;
+    String[][] movies;
+    ArrayList<Integer> selectedSeats;
+    String seats, method = "";
+    int length;
             
     public void start() {
         try {            
             db = new Database("jdbc:derby://localhost:1527/bio", "bio", "1234");
-            
-            //System.out.println(radix("0011222110 0112222200 0002200000",3,32));
-            //System.out.println(radix("bgcc16qk4",32,3));
-            
-            //db.insert("2, 6,'"+radix("000110022221000000",3,32)+"', 2, '2020-05-22 20:15:00', 20", "FILM");
-            
-            /* Pladser ræpræsenteres som enten 0, 1 eller 2 (fri, reseveret eller optaget)
-               så kander vi antallet af sæder i rækkerne kan vi skrive :
-                   0 0 0 1 1 0
-                   0 2 2 2 2 1
-                   0 0 0 0 0 0 
-               som
-                   6, base[3] 000110022221000000
-               som bliver til 6552981 i decimal, dette kan vi konvetere tilbage til base 3
-             */
-            
-            //int t = 19;
-            //System.out.println(getCinnema(t));
-            //System.out.println(getAuditorium(t));
-            
-            //db.insert("4,'AARHUS'", "BIOGRAFER");
-            //db.update("3", "ID", "NAVN = 'ODENSE C'", "BIOGRAFER");
+            //db.createTables(false);   //Initilizes the database with filler entries
+            //db.createTables(true);    //Will reset the database to a default state
 
             String[][] tbl = db.select("NAVN, ID", "BIOGRAFER");
             String[] model = new String[tbl.length];
@@ -516,10 +503,27 @@ public final class window extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Ceil a double to an integer
+     * @param x number
+     * @return the greates integer less than or equal to x return as integer
+     */
+    public static int ceil(double x) {
+        return ((int)x)+1;
+    }
+    
+    /**
+     * Convert a number formatted as a string to antoher base
+     * @param num Number as string
+     * @param from numbers current base, base 2 - 36 supported
+     * @param to radix to convert to, supports base 2 - 36
+     * @return a string representing at number in the new base
+     */
     public String radix(String num, int from, int to) {
         return Long.toString(Long.parseUnsignedLong(num, from), to);
     }
     
+    /* Not in use
     public int getCinnema(int identifier) {
         for(int i = 1; i < 17; i++) {
             int cin = (identifier - (3 * i)) / 17;
@@ -533,7 +537,7 @@ public final class window extends javax.swing.JFrame {
     
     public int getIdentifier(int cin, int aud) {
         return (cin*17+aud*3);
-    }
+    }*/
     
     /**
      * @param args the command line arguments
